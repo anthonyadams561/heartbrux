@@ -1,7 +1,7 @@
-heartbeat
+HeartBrux
 ==========
 
-Analyzes heartrate data from the Wahoo Tickr  
+Heart rate analysis for bruxism detection.
 
 More info here:
 
