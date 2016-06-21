@@ -1,0 +1,26 @@
+<h3>{{plot_name}}</h3>
+<div id="{{div_id}}"></div>
+
+<script type="text/javascript">
+
+var chart = c3.generate({
+    bindto: '#{{div_id}}',
+    data: {
+      x: 'datetime',
+      xFormat: '%Y-%m-%d %H:%M:%S',
+      columns: [
+        ['datetime', {% for index, row in data.iteritems() %} '{{index}}', {% endfor %}],
+        ['hr', {% for index, row in data.iteritems() %} '{{row}}', {% endfor %}]
+      ]
+    },
+    axis: {
+        x: {
+            type: 'timeseries',
+            tick: {
+                count: 20,
+                format: '%H:%M:%S'
+            }
+        }
+    }
+});
+</script>
