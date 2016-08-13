@@ -8,6 +8,7 @@ from datetime import datetime
 from datetime import timedelta
 from jinja2 import Template
 from pandas import Series
+from distutils.dir_util import copy_tree
 
 # The width of the charts, in pixels
 MAX_POINTS = 500
@@ -58,13 +59,15 @@ def get_file_contents(path):
 
 
 def generate_report(data, output_dir):
+    script_path = os.path.abspath(__file__)
+    script_dir = os.path.dirname(script_path)
+
     # If the specified directory doesn't exist, create it
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
     # Copy dependencies to the build directory
-    shutil.copytree("template/js", output_dir + "/js")
-    shutil.copytree("template/css", output_dir + "/css")
+    copy_tree(script_dir + "/templates/dependencies", output_dir)
 
     # Create the plots
     plots = [

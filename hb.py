@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 import argparse
 import os
-from parsers import wahoo
-from reports import generator
+
+from heartbrux import reports
+from heartbrux.parsers import wahoo
 
 
 def process_data_file(filename):
@@ -20,15 +21,13 @@ def process_data_dir(data_dir):
 
 
 def main():
-    script_path = os.path.abspath(__file__)
-    script_dir = os.path.dirname(script_path)
-
     parser = argparse.ArgumentParser(description='Process some data.')
-    parser.add_argument('data_dir', help='The data directory to process')
+    parser.add_argument('data_dir', help='The directory that contains the input data files')
+    parser.add_argument('report_dir', help='The directory to write reports to')
     args = parser.parse_args()
     if os.path.isdir(args.data_dir):
         datasets = process_data_dir(args.data_dir)
-        # generator.generate_report(data, output_dir)
+        reports.generate_report(datasets, args.report_dir)
 
     else:
         print("The specified directory is not valid: " + args.data_dir)
