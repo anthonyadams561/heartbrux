@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import os
-import shutil
 import csv
 import uuid
 from datetime import datetime
@@ -13,15 +12,17 @@ from distutils.dir_util import copy_tree
 # The width of the charts, in pixels
 MAX_POINTS = 500
 
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
 
 def create_page(page_name, plots):
-    template = Template(get_file_contents('template/page.html'))
+    template = Template(get_file_contents(script_dir + '/templates/page.html'))
     return template.render(page_name=page_name, plots=plots)
 
 
 def create_plot(template_name, plot_name, data):
     div_id = "plot-" + str(uuid.uuid4()).replace("-", "")
-    template = Template(get_file_contents('template/' + template_name + ".html"))
+    template = Template(get_file_contents(script_dir + '/templates/' + template_name + ".html"))
     return template.render(plot_name=plot_name, data=data, div_id=div_id)
 
 
@@ -59,9 +60,6 @@ def get_file_contents(path):
 
 
 def generate_report(data, output_dir):
-    script_path = os.path.abspath(__file__)
-    script_dir = os.path.dirname(script_path)
-
     # If the specified directory doesn't exist, create it
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)

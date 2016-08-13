@@ -27,7 +27,7 @@ def main():
     args = parser.parse_args()
     if os.path.isdir(args.data_dir):
         datasets = process_data_dir(args.data_dir)
-        reports.generate_report(datasets, args.report_dir)
+        reports.generate_report(datasets[0], args.report_dir)
 
     else:
         print("The specified directory is not valid: " + args.data_dir)
