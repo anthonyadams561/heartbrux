@@ -14,7 +14,7 @@ def process_data_file(filename):
     time_delta = data.index[data.size - 1] - data.index[0]
     hours = time_delta / np.timedelta64(1, 'h')
     print("{0} data points extracted over {1:.1f} hours".format(data.size, hours))
-    return wahoo.parse(f)
+    return data
 
 
 def process_data_dir(data_dir):
