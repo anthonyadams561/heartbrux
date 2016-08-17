@@ -31,7 +31,6 @@ def parse(data_file):
                 minute = int(match.group("minute"))
                 second = int(match.group("second"))
                 start_datetime = datetime.datetime(year, month, day, hour, minute, second)
-                print start_datetime
 
         if heart_rate_column_name in line:
             in_data_section = True

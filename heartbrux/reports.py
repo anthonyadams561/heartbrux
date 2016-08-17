@@ -1,12 +1,8 @@
 #!/usr/bin/env python
 
 import os
-import csv
 import uuid
-from datetime import datetime
-from datetime import timedelta
 from jinja2 import Template
-from pandas import Series
 from distutils.dir_util import copy_tree
 
 # The width of the charts, in pixels
@@ -24,24 +20,6 @@ def create_plot(template_name, plot_name, data):
     div_id = "plot-" + str(uuid.uuid4()).replace("-", "")
     template = Template(get_file_contents(script_dir + '/templates/' + template_name + ".html"))
     return template.render(plot_name=plot_name, data=data, div_id=div_id)
-
-
-def create_time_series():
-    dates = []
-    data = []
-    start_date = datetime(2016, 04, 07, 22, 25, 00)
-    with open('2016-04-07-2225_edit.csv', 'rb') as f:
-        reader = csv.reader(f)
-        for row in reader:
-            dates.append(start_date + timedelta(seconds=int(row[0])))
-            data.append(int(row[1]))
-    time_series = Series(data, index=dates)
-
-    if time_series.count() > MAX_POINTS:
-        samples_per_point = time_series.count() / MAX_POINTS
-        time_series = time_series.resample(str(samples_per_point) + 'S').max()
-
-    return time_series
 
 
 def write_to_file(path, contents):
