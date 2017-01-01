@@ -1,0 +1,49 @@
+<h3>{{options.report_element_name}}</h3>
+<div id="{{div_id}}" class="chart-element"></div>
+
+<script type="text/javascript">
+
+var colors = ['#1f77b4', '#aec7e8', '#ff7f0e'];
+
+var chart = c3.generate({
+  bindto: '#{{div_id}}',
+  data: {
+    columns: [
+      ['{{options.data_element_name}}',{% for index, value in data.iteritems() %}{{ value }},{% endfor %}]
+    ],
+    type: 'bar',
+    color: function (color, d) {
+      return colors[d.index % colors.length];
+    }
+  },
+  axis: {
+    x: {
+      label: {
+        text: '{{options.x_axis_label}}',
+        position: 'outer-center',
+      },
+      type: 'category',
+      categories: [{% for index, value in data.iteritems() %}'{{ index }}',{% endfor %}],
+      tick: {
+        centered: true
+      }
+    },
+    y: {
+      label: {
+        text: '{{options.y_axis_label}}',
+        position: 'outer-middle'
+      },
+      padding: {
+        top: 0,
+        bottom: 0
+      },
+      min: {{options.y_axis_min}},
+      max: {{options.y_axis_max}},
+    }
+  },
+  legend: {
+    show: false
+  }
+});
+
+</script>

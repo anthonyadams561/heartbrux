@@ -1,0 +1,24 @@
+<h3>{{options.report_element_name}}</h3>
+<div class="datagrid chart-element">
+   <table>
+      <thead>
+         <tr>
+            {% for header in data.headings %}
+            <th>{{header}}</th>
+            {% endfor %}
+         </tr>
+      </thead>
+      <tbody>
+        {% for row in data.rows %}
+          {% if loop.index is divisibleby 2 %}
+          <tr class="alt">
+          {% else %}
+          <tr>
+          {% endif %}
+          {% for cell in row %}
+          <td>{{cell}}</td>
+          {% endfor %}
+        {% endfor %}
+      </tbody>
+   </table>
+</div>
